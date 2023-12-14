@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('product_id')->unsigned();
             $table->integer('amount');
+            $table->integer('previous_stock');
+            $table->integer('new_stock');
             $table->timestamps();
 
             // Foreign Keys

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockMovementsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +44,16 @@ Route::middleware('auth')->group(function () {
         Route::patch('{id}', [ProductsController::class, 'update'])->name('update');
         Route::delete('{id}', [ProductsController::class, 'destroy'])->name('destroy');
 
+        Route::group(['prefix' => '{id}/stock_movements', 'as' => 'stock_movements.'], function() {
+
+            Route::get('', [StockMovementsController::class, 'index'])->name('index');
+            Route::post('', [StockMovementsController::class, 'store'])->name('store');
+            Route::get('create', [StockMovementsController::class, 'create'])->name('create');
+            Route::delete('{stock_movement_id}', [StockMovementsController::class, 'destroy'])->name('destroy');
+
+        });
     });
+
 
 });
 

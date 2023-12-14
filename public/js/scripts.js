@@ -38,9 +38,30 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
+    const stockMovementTable = document.getElementById('stock-movement-table');
+    if (stockMovementTable) {
+        new simpleDatatables.DataTable(stockMovementTable, {
+            searchable: false,
+            sortable: false,
+            perPage: 5,
+            perPageSelect: false,
+            labels: {
+                placeholder: "Procurar...",
+                searchTitle: "Procurar dentro da tabela",
+                pageTitle: "Página {page}",
+                perPage: "resultados por página",
+                noRows: "Nenhum resultado encontrado",
+                info: "Mostrando resultados de {start} a {end}, de {rows} resultados",
+                noResults: "Nenhum resultado encontrado",
+            }
+        });
+    }
+
     $(".select-search").select2({
         theme: "bootstrap-5"
     });
+
+    VMasker(document.querySelector(".number")).maskNumber();
 
     VMasker(document.querySelector(".date")).maskPattern("99/99/9999");
 
