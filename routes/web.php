@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', function () {
         return view('index');
+    });
+
+    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function() {
+
+        Route::get('', [CategoriesController::class, 'index'])->name('index');
+        Route::post('', [CategoriesController::class, 'store'])->name('store');
+        Route::get('create', [CategoriesController::class, 'create'])->name('create');
+        Route::get('edit/{id}', [CategoriesController::class, 'edit'])->name('edit');
+        Route::patch('{id}', [CategoriesController::class, 'update'])->name('update');
+        Route::delete('{id}', [CategoriesController::class, 'destroy'])->name('destroy');
+
     });
 
 });
