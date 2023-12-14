@@ -19,7 +19,8 @@ class CastDateInputs
         if ($request->method() != 'get') {
 
             $date_fields = [
-                'expires_at'
+                'expires_at',
+                'date',
             ];
 
             $input = $request->all();

@@ -24,11 +24,20 @@
                                     @csrf
 
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col-sm-6 col-12">
                                             <div class="mb-3">
                                                 <label for="amount" class="form-label">Quantidade</label>
                                                 <input type="number" min="1" class="form-control number" id="amount" name="amount" value="{{ old('amount') }}">
                                                 @error('amount')
+                                                    <p class="mb-0 text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
+                                            <div class="mb-3">
+                                                <label for="date" class="form-label">Data</label>
+                                                <input type="text" placeholder="__/__/____" class="form-control date" id="date" name="date" value="{{ old('date') }}">
+                                                @error('date')
                                                     <p class="mb-0 text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>

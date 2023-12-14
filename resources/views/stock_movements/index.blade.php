@@ -28,9 +28,6 @@
                                             <th>Data</th>
                                             <th>Movimentação</th>
                                             <th>Quantidade</th>
-                                            <th>Estoque anterior</th>
-                                            <th>Novo Estoque</th>
-                                            <th>Ações</th>
                                         </tr>
                                     </thead>
 
@@ -38,18 +35,9 @@
                                         @if (count( $product->stock_movements ) > 0)
                                             @foreach ($product->stock_movements as $stock_movement)
                                                 <tr>
-                                                    <td>{{ $stock_movement->created_at->format('d/m/Y H:s') }}</td>
+                                                    <td>{{ $stock_movement->date->format('d/m/Y H:i') }}</td>
                                                     <td><span class="badge rounded-pill bg-{{ $stock_movement->type_style }}">{{ $stock_movement->type }}</span></td>
                                                     <td>{{ $stock_movement->amount }}</td>
-                                                    <td>{{ $stock_movement->previous_stock }}</td>
-                                                    <td>{{ $stock_movement->new_stock }}</td>
-                                                    <td>
-                                                        <a href="" class="btn btn-danger" title="Excluir" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal_{{ $stock_movement->id }}"><i class="fa-solid fa-trash"></i></a>
-
-                                                        @include('stock_movements.parts.modal_confirm_delete', [
-                                                            'id' => 'confirmDeleteModal_' . $stock_movement->id
-                                                        ])
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @else

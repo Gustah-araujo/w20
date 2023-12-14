@@ -17,6 +17,10 @@ class StockMovement extends Model
         'amount',
     ];
 
+    protected $casts = [
+        'date' => 'date:d/m/Y'
+    ];
+
     /**
      * Mutators
      */
