@@ -21,6 +21,7 @@
                                     <th>Nome</th>
                                     <th>SKU</th>
                                     <th>Categoria</th>
+                                    <th>Preço</th>
                                     <th>Data de expiração</th>
                                     <th>Criado em</th>
                                     <th>Ações</th>
@@ -36,6 +37,7 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->sku }}</td>
                                         <td>{{ $product->category->name }}</td>
+                                        <td>{{ $product->price }}</td>
                                         <td>{{ $product->created_at->format('d/m/Y') }}</td>
                                         <td>{{ $product->expires_at ? $product->expires_at->format('d/m/Y') : 'Não expira' }}</td>
                                         <td>
