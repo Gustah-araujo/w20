@@ -49,7 +49,9 @@
                                                 'id' => 'confirmDeleteModal_' . $product->id
                                             ])
 
-                                            <a href="" class="btn btn-info text-white" title="Histórico de movimentações"><i class="fa-solid fa-clipboard-list"></i></a>
+                                            <a href="{{ route('products.stock_movements.create', ['id' => $product->id]) }}" class="btn btn-info text-white" title="Registrar entrada ou saída"><i class="fa-solid fa-boxes-stacked"></i></a>
+
+                                            <a href="{{ route('products.stock_movements.index', ['id' => $product->id]) }}" class="btn btn-info text-white" title="Histórico de movimentações"><i class="fa-solid fa-timeline"></i></a>
                                         </td>
                                     </tr>
 

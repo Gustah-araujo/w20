@@ -156,6 +156,9 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'amount' => [
+        'insufficient_stock' => 'Este produto não possui estoque suficiente para esta movimentação.'
+    ],
 
     /*
     |--------------------------------------------------------------------------
