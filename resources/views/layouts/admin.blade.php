@@ -63,6 +63,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('categories.create') }}">Criar</a>
                                     <a class="nav-link" href="{{ route('categories.index') }}">Listar</a>
+                                    <a class="nav-link" href="{{ route('categories.index') }}">Listar</a>
                                 </nav>
                             </div>
 
@@ -75,6 +76,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('products.create') }}">Criar</a>
                                     <a class="nav-link" href="{{ route('products.index') }}">Listar</a>
+                                    <a class="nav-link" href="{{ route('products.stock') }}">Estoque</a>
                                 </nav>
                             </div>
 
