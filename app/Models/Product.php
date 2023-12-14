@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory, HasSku;
 
     protected $casts = [
-        ['expires_at' => 'date'],
+        'expires_at' => 'date:d/m/Y',
     ];
 
     protected $fillable = [
