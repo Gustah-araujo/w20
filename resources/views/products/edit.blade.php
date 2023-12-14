@@ -39,7 +39,7 @@
                             <div class="row">
                                 <div class="col-sm-4 col-12 mb-3">
                                     <label for="expires_at" class="form-label">Data de validade</label>
-                                    <input type="text" class="form-control date" placeholder="__/__/____" id="expires_at" name="expires_at" value="{{ $product->expires_at->format('dmY') }}">
+                                    <input type="text" class="form-control date" placeholder="__/__/____" id="expires_at" name="expires_at" value="{{ $product->expires_at ? $product->expires_at->format('dmY') : '' }}">
                                     @error('expires_at')
                                         <p class="mb-0 text-danger">{{ $message }}</p>
                                     @enderror
