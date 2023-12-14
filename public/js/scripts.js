@@ -3,9 +3,9 @@
     * Copyright 2013-2023 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
     */
-    // 
+    //
 // Scripts
-// 
+//
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -20,6 +20,21 @@ window.addEventListener('DOMContentLoaded', event => {
             event.preventDefault();
             document.body.classList.toggle('sb-sidenav-toggled');
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+        });
+    }
+
+    const datatablesSimple = document.getElementById('datatable');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple, {
+            labels: {
+                placeholder: "Procurar...",
+                searchTitle: "Procurar dentro da tabela",
+                pageTitle: "Página {page}",
+                perPage: "resultados por página",
+                noRows: "Nenhum resultado encontrado",
+                info: "Mostrando resultados de {start} a {end}, de {rows} resultados",
+                noResults: "Nenhum resultado encontrado",
+            }
         });
     }
 
