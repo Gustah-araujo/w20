@@ -36,25 +36,7 @@
                         Produtos com maior saída
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Imagem</th>
-                                    <th>Produto</th>
-                                    <th>Total de saídas</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($top_products_data as $data)
-                                    <tr>
-                                        <td><img style="max-height: 25px" src="{{ $data->product->image }}" alt=""></td>
-                                        <td>{{ $data->product->name }}</td>
-                                        <td>{{ - $data->total_amount }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="card-body"><canvas id="top-products" width="100%" height="40"></canvas></div>
                     </div>
                 </div>
             </div>
@@ -65,12 +47,13 @@
 @section('scripts')
 
     <input type="hidden" id="salesByMonth" value="{{ $sales_by_month }}">
+    <input type="hidden" id="topProducts" value="{{ $top_products_data }}">
 
     <script>
 
         window.addEventListener('DOMContentLoaded', event => {
 
-            const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+            const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
             document.getElementById('sales-by-month-year').addEventListener('change', event => {
 
@@ -105,6 +88,7 @@
             });
 
             const salesByMonthDatasets = JSON.parse(document.getElementById('salesByMonth').value);
+            const topProductsData = JSON.parse(document.getElementById('topProducts').value);
 
             const salesByMonthConfig = {
                 type: 'line',
@@ -119,6 +103,46 @@
                 }
             };
 
+            const abc = {
+                labels: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const topProductsConfig = {
+                type: 'bar',
+                data: topProductsData,
+                // options: {
+                //     legend: {
+                //         position: 'left',
+                //     },
+                // }
+            };
+
+            console.log( topProductsData );
+
+            var topProductsChart  = new Chart( document.getElementById('top-products'), topProductsConfig );
             var salesByMonthChart = new Chart( document.getElementById('sales-by-month'), salesByMonthConfig );
 
         });
