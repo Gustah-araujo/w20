@@ -33,9 +33,29 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-chart-bar me-1"></i>
-                        Bar Chart Example
+                        Produtos com maior saída
                     </div>
-                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                    <div class="card-body">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Imagem</th>
+                                    <th>Produto</th>
+                                    <th>Total de saídas</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($top_products_data as $data)
+                                    <tr>
+                                        <td><img style="max-height: 25px" src="{{ $data->product->image }}" alt=""></td>
+                                        <td>{{ $data->product->name }}</td>
+                                        <td>{{ - $data->total_amount }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
