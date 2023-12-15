@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockMovementsController;
@@ -20,8 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', function () {
-        return view('index');
+    Route::get('/', [DashboardsController::class, 'index']);
+
+    Route::group(['prefix' => 'dashboards', 'as' => 'dashboards.'], function() {
+
+        Route::get('{year}/sales_by_month', [DashboardsController::class, 'sales_by_month'])->name('sales_by_month');
+
     });
 
     Route::group(['prefix' => 'categories', 'as' => 'categories.'], function() {
@@ -38,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'products', 'as' => 'products.'], function() {
 
         Route::get('', [ProductsController::class, 'index'])->name('index');
+        Route::get('stock', [ProductsController::class, 'stock'])->name('stock');
         Route::post('', [ProductsController::class, 'store'])->name('store');
         Route::get('create', [ProductsController::class, 'create'])->name('create');
         Route::get('edit/{id}', [ProductsController::class, 'edit'])->name('edit');

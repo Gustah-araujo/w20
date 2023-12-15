@@ -51,6 +51,10 @@ class StockMovementsController extends Controller
                 'gt:0',
                 new HasStock($id),
             ],
+            'date' => [
+                'required',
+                'date',
+            ],
             'type' => [
                 'required',
                 Rule::in(['in', 'out'])

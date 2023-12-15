@@ -11,11 +11,23 @@ class StockMovement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'previous_stock',
-        'new_stock',
         'product_id',
         'amount',
+        'date',
     ];
+
+    protected $casts = [
+        'date' => 'date:d/m/Y'
+    ];
+
+    /**
+     * Relationships
+     */
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     /**
      * Mutators
