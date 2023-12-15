@@ -96,18 +96,12 @@ class DashboardsController extends Controller
         ->select('product_id', DB::raw('SUM(amount) as total_amount'))->get();
 
         foreach ($products as $product) {
-            // $data[] = [
-            //     'x' => $product->product->name,
-            //     'y' => - $product->total_amount,
-            // ];
-
             $data[] = - $product->total_amount;
             $labels[] = $product->product->name;
             $colors[] = 'rgb(' . fake()->rgbColor() . ')';
         }
 
         $datasets[] = [
-            'label' => 'Produtos com maior saída',
             'data' => $data,
             'backgroundColor' => $colors,
             'borderWidth' => 1
