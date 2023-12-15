@@ -19,11 +19,11 @@ class StockMovementsSeeder extends Seeder
 
         foreach ($products as $product) {
 
-            $date = Carbon::createFromFormat('d/m/Y', '01/01/2023');
+            $date = Carbon::createFromFormat('d/m/Y', '01/07/2022');
 
-            foreach (range(1, 25) as $index) {
+            foreach (range(1, 50) as $index) {
                 $stock = $product->stock;
-                $date = $date->addDays( fake()->numberBetween(1, 10) )->setTime( fake()->time('H'), fake()->time('i') );
+                $date = $date->addDays( fake()->numberBetween(10, 20) )->setTime( fake()->time('H'), fake()->time('i') );
 
                 if ($stock < 10) {
 

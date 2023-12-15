@@ -15,9 +15,7 @@ class DashboardsController extends Controller
     {
         $sales_by_month = json_encode( $this->get_sales_by_month_data() );
 
-        $top_products_data = StockMovement::with('product')->groupBy('product_id')
-        ->where('amount', '<', 0)->orderBy('total_amount', 'ASC')->limit(10)
-        ->select('product_id', DB::raw('SUM(amount) as total_amount'))->get();
+        $top_products_data = json_encode($this->get_top_products_data());
 
         return view('index', compact(
             'sales_by_month',
@@ -84,5 +82,34 @@ class DashboardsController extends Controller
 
 
         return $sales_by_month;
+    }
+
+    private function get_top_products_data()
+    {
+        $datasets = [];
+        $data = [];
+        $colors = [];
+        $labels  = [];
+
+        $products = StockMovement::with('product')->groupBy('product_id')
+        ->where('amount', '<', 0)->orderBy('total_amount', 'ASC')->limit(10)
+        ->select('product_id', DB::raw('SUM(amount) as total_amount'))->get();
+
+        foreach ($products as $product) {
+            $data[] = - $product->total_amount;
+            $labels[] = $product->product->name;
+            $colors[] = 'rgb(' . fake()->rgbColor() . ')';
+        }
+
+        $datasets[] = [
+            'data' => $data,
+            'backgroundColor' => $colors,
+            'borderWidth' => 1
+        ];
+
+        return [
+            'datasets' => $datasets,
+            'labels' => $labels,
+        ];
     }
 }
