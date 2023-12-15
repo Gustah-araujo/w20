@@ -72,8 +72,8 @@
                             }
                         };
 
-                        topProductsChart.destroy();
-                        topProductsChart = new Chart( $('#sales-by-month'), chartConfig );
+                        salesByMonthChart.destroy();
+                        salesByMonthChart = new Chart( $('#sales-by-month'), chartConfig );
                     }
                 });
 
@@ -81,7 +81,7 @@
 
             const salesByMonthDatasets = JSON.parse(document.getElementById('salesByMonth').value);
 
-            const topProductsConfig = {
+            const salesByMonthConfig = {
                 type: 'line',
                 data: {
                     labels: months,
@@ -89,7 +89,7 @@
                 },
             };
 
-            var topProductsChart = new Chart( document.getElementById('sales-by-month'), topProductsConfig );
+            var salesByMonthChart = new Chart( document.getElementById('sales-by-month'), salesByMonthConfig );
 
         });
 
