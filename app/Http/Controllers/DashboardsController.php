@@ -15,8 +15,13 @@ class DashboardsController extends Controller
     {
         $sales_by_month = json_encode( $this->get_sales_by_month_data() );
 
+        $top_products_data = StockMovement::with('product')->groupBy('product_id')
+        ->where('amount', '<', 0)->orderBy('total_amount', 'ASC')->limit(10)
+        ->select('product_id', DB::raw('SUM(amount) as total_amount'))->get();
+
         return view('index', compact(
-            'sales_by_month'
+            'sales_by_month',
+            'top_products_data',
         ));
     }
 

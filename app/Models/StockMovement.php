@@ -21,6 +21,15 @@ class StockMovement extends Model
     ];
 
     /**
+     * Relationships
+     */
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
      * Mutators
      */
 
