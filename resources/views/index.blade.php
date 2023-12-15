@@ -14,11 +14,11 @@
 
                         <div class="float-start">
                             <i class="fas fa-chart-area me-1"></i>
-                            Produtos com mais saída
+                            Saídas por mês
                         </div>
 
                         <div class="float-end">
-                            <select class="form-select" id="top-product-sales-year">
+                            <select class="form-select" id="sales-by-month-year">
                                 <option value="{{ \Carbon\Carbon::now()->subYears(2)->year }}">{{ \Carbon\Carbon::now()->subYears(2)->year }}</option>
                                 <option value="{{ \Carbon\Carbon::now()->subYear()->year }}">{{ \Carbon\Carbon::now()->subYear()->year }}</option>
                                 <option selected value="{{ \Carbon\Carbon::now()->year }}">{{ \Carbon\Carbon::now()->year }}</option>
@@ -26,7 +26,7 @@
                         </div>
 
                     </div>
-                    <div class="card-body"><canvas id="top-product-sales" width="100%" height="40"></canvas></div>
+                    <div class="card-body"><canvas id="sales-by-month" width="100%" height="40"></canvas></div>
                 </div>
             </div>
             <div class="col-xl-6">
@@ -44,7 +44,7 @@
 
 @section('scripts')
 
-    <input type="hidden" id="topProductsData" value="{{ $topProductsDatasets }}">
+    <input type="hidden" id="salesByMonth" value="{{ $sales_by_month }}">
 
     <script>
 
@@ -52,13 +52,13 @@
 
             const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
-            document.getElementById('top-product-sales-year').addEventListener('change', event => {
+            document.getElementById('sales-by-month-year').addEventListener('change', event => {
 
                 let year = event.target.value;
 
                 $.ajax({
                     type: "GET",
-                    url: route('dashboards.top_products_sales', {
+                    url: route('dashboards.sales_by_month', {
                         year: year
                     }),
                     dataType: "json",
@@ -73,23 +73,23 @@
                         };
 
                         topProductsChart.destroy();
-                        topProductsChart = new Chart( $('#top-product-sales'), chartConfig );
+                        topProductsChart = new Chart( $('#sales-by-month'), chartConfig );
                     }
                 });
 
             });
 
-            const topProductsDatasets = JSON.parse(document.getElementById('topProductsData').value);
+            const salesByMonthDatasets = JSON.parse(document.getElementById('salesByMonth').value);
 
             const topProductsConfig = {
                 type: 'line',
                 data: {
                     labels: months,
-                    datasets: topProductsDatasets
+                    datasets: salesByMonthDatasets
                 },
             };
 
-            var topProductsChart = new Chart( document.getElementById('top-product-sales'), topProductsConfig );
+            var topProductsChart = new Chart( document.getElementById('sales-by-month'), topProductsConfig );
 
         });
 

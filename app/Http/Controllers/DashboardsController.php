@@ -13,24 +13,24 @@ class DashboardsController extends Controller
 {
     public function index()
     {
-        $topProductsDatasets = json_encode( $this->get_top_product_chart_data() );
+        $sales_by_month = json_encode( $this->get_sales_by_month_data() );
 
         return view('index', compact(
-            'topProductsDatasets'
+            'sales_by_month'
         ));
     }
 
-    public function top_products_sales($year)
+    public function sales_by_month($year)
     {
-        $data = $this->get_top_product_chart_data($year);
+        $data = $this->get_sales_by_month_data($year);
 
         return response()->json($data);
     }
 
-    private function get_top_product_chart_data($year = null)
+    private function get_sales_by_month_data($year = null)
     {
         $year = $year ? $year : Carbon::now()->year;
-        $topProductsDatasets = [];
+        $sales_by_month = [];
 
         $products = StockMovement::groupBy('product_id')
         ->where('amount', '<', 0)->orderBy('total_amount', 'ASC')->limit(10)
@@ -41,7 +41,7 @@ class DashboardsController extends Controller
             $product = Product::find($product_id);
             $date = Carbon::createFromFormat('Y', $year)->startOfYear();
 
-            $topProductsDatasets[$product_id] = [
+            $sales_by_month[$product_id] = [
                 'label'       => $product->name,
                 'fill'        => false,
                 'borderColor' => 'rgb(' . fake()->rgbColor() . ')',
@@ -51,9 +51,9 @@ class DashboardsController extends Controller
 
             while ($date->year == Carbon::now()->year) {
 
-                if (!isset( $topProductsDatasets[$product_id]['data'][$date->month] )) {
+                if (!isset( $sales_by_month[$product_id]['data'][$date->month] )) {
 
-                    $topProductsDatasets[$product_id]['data'][$date->month] = 0;
+                    $sales_by_month[$product_id]['data'][$date->month] = 0;
 
                     $stock_movements = StockMovement::groupBy('product_id')
                     ->where('product_id', '=', $product_id)->where('amount', '<', 0)
@@ -61,21 +61,21 @@ class DashboardsController extends Controller
                     ->select('product_id', DB::raw('SUM(amount) as total_amount'))->get()->toArray();
 
                     if ( $stock_movements ) {
-                        $topProductsDatasets[$product_id]['data'][$date->month] = - $stock_movements[0]['total_amount'];
+                        $sales_by_month[$product_id]['data'][$date->month] = - $stock_movements[0]['total_amount'];
                     }
                 }
 
                 $date->addDays(10);
             }
 
-            $topProductsDatasets[$product_id]['data'] = array_values( $topProductsDatasets[$product_id]['data'] );
+            $sales_by_month[$product_id]['data'] = array_values( $sales_by_month[$product_id]['data'] );
 
         }
 
-        $topProductsDatasets = array_values($topProductsDatasets);
+        $sales_by_month = array_values($sales_by_month);
 
 
 
-        return $topProductsDatasets;
+        return $sales_by_month;
     }
 }

@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'dashboards', 'as' => 'dashboards.'], function() {
 
-        Route::get('{year}/top_products', [DashboardsController::class, 'top_products_sales'])->name('top_products_sales');
+        Route::get('{year}/sales_by_month', [DashboardsController::class, 'sales_by_month'])->name('sales_by_month');
 
     });
 
