@@ -45,13 +45,15 @@ class DashboardsController extends Controller
 
             $product = Product::find($product_id);
             $date = Carbon::createFromFormat('Y', $year)->startOfYear();
+            $color = 'rgb(' . fake()->rgbColor() . ')';
 
             $sales_by_month[$product_id] = [
-                'label'       => $product->name,
-                'fill'        => false,
-                'borderColor' => 'rgb(' . fake()->rgbColor() . ')',
-                'tension'     => 0.1,
-                'data'        => []
+                'label'            => $product->name,
+                'fill'             => false,
+                'borderColor'      => $color,
+                'backgroundColor' => $color,
+                'tension'          => 0.1,
+                'data'             => [],
             ];
 
             while ($date->year == Carbon::now()->year) {

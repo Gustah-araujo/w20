@@ -89,6 +89,11 @@
                             data: {
                                 labels  : months,
                                 datasets: response
+                            },
+                            options: {
+                                legend: {
+                                    position: 'left',
+                                },
                             }
                         };
 
@@ -107,6 +112,11 @@
                     labels: months,
                     datasets: salesByMonthDatasets
                 },
+                options: {
+                    legend: {
+                        position: 'left',
+                    },
+                }
             };
 
             var salesByMonthChart = new Chart( document.getElementById('sales-by-month'), salesByMonthConfig );
